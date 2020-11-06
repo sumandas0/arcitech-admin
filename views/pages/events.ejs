@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body class="jumbotron">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Topic</th>
+                    <th>Details</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <% if(events) {%><% events.forEach(event => { %>
+                <tr>
+                    <td><%= event.topic %> </td>
+                    <td><%= event.details.substr(15) %></td>
+                    <td><a href="/updateEvent/<%= event.id %> ">Update</a></td>
+                    <td><a href="/deleteEvent/<%= event.id %> ">Delete</a></td>
+                </tr>
+                <% }) %><%}%> 
+            </tbody>
+        </table>
+     
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+                </footer>
+
+                </body>
+
+</html>

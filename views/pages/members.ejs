@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body class="jumbotron">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>about</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <% if(members) {%><% members.forEach(member => { %>
+                <tr>
+                    <td><%= member.namesubstr(15) %> </td>
+                    <td><%= member.about.substr(15) %></td>
+                    <td><a href="/updateMember/<%= member.id %> ">Update</a></td>
+                    <td><a href="/deleteMember/<%= member.id %> ">Delete</a></td>
+                </tr>
+                <% }) %><%}%> 
+            </tbody>
+        </table>
+     
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+                </footer>
+
+                </body>
+
+</html>

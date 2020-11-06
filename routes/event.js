@@ -21,4 +21,15 @@ module.exports = function (app, passport) {
       });
     }
   });
+  app.get("/event", async (req, res) => {
+    try {
+      const events = await Event.find({});
+      res.render("pages/events", { events });
+    } catch (error) {
+      res.render("pages/dashboard", {
+        success: false,
+        message: "Some error occured",
+      });
+    }
+  });
 };

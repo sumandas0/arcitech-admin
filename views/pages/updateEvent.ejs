@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body class="container">
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+    <main>
+        <form action="/updateEvent/:<%= event.id %>" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="topic">Event Topic</label>
+                <input type="text" name="topic" value="<%= event.topic %>" class="form-control" placeholder="Enter Topic Name" required="true">
+            </div>
+          
+            <div class="form-group">
+                <label for="details">Enter Event details</label>
+                <textarea name="details" value="<%= event.details%> class="form-control" placeholder="Enter event details"></textarea>
+
+            </div>
+            <div class="form-group">
+                <label for="eventLink">Enter event link</label>
+                <input type="text" name="eventLink" value="<%= event.topic%> value="<%= event.topic%> class="form-control" placeholder="Enter link to event">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+
+</html>

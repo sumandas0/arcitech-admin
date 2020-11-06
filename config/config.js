@@ -1,7 +1,6 @@
-const MONGO_URI =
-  "mongodb+srv://sumand:yOwqLiseHDbOmjHy@cluster0.wdba9.mongodb.net/arc?retryWrites=true&w=majority";
-const SENDGRID_KEY =
-  "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";
-const JWT_KEY = "uIiUnCuIdXhPwF";
-const URL = "localhost:3000"
-module.exports = { MONGO_URI, SENDGRID_KEY, JWT_KEY,URL };
+const keys = require("./keys");
+const MONGO_URI = process.env.MONGO_URI || keys.mongo_uri;
+const SENDGRID_KEY = process.env.SENDGRID_KEY || keys.sendgrid_key;
+const JWT_KEY = process.env.JWT_KEY || keys.jwt_key;
+const URL = process.env.URL || "localhost:3000";
+module.exports = { MONGO_URI, SENDGRID_KEY, JWT_KEY, URL };

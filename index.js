@@ -3,6 +3,8 @@ const passport = require("passport");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const flash = require("connect-flash");
+const MONGO_URI = require("./config/config").MONGO_URI;
+const SENDGRID_KEY = require("./config/config").SENDGRID_KEY;
 const app = express();
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
@@ -14,27 +16,22 @@ app.use(
     secret: "cookie_secret",
     resave: true,
     saveUninitialized: true,
-    cookie:{
-      maxAge: 60000 * 60
-    }
+    cookie: {
+      maxAge: 60000 * 60,
+    },
   })
 );
 app.use(passport.session());
 mongoose
-  .connect(
-    "mongodb+srv://sumand:yOwqLiseHDbOmjHy@cluster0.wdba9.mongodb.net/arc?retryWrites=true&w=majority",
-    { useNewUrlParser: true, useUnifiedTopology: true }
-  )
+  .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then((res) => console.log("Connected to mongo"))
   .catch((e) => console.log("Mongoose error occured"));
 app.get("/", function (req, res) {
   res.render("pages/index");
 });
 const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey(
-  "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"
-);
+sgMail.setApiKey(SENDGRID_KEY);
 
 require("./routes/index")(app, passport);
 require("./config/passport")(passport);
-app.listen(3000, () => console.log("Server is up at port 3000"));
+app.listen(process.env.PORT || 3000, () => console.log("Server is up at port 3000"));

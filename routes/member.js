@@ -9,11 +9,11 @@ module.exports = function (app) {
       const file = req.file;
       const member = new Member();
       member.name = req.body.name;
-      member.profileImage = file.path && null;
-      member.about = req.body.about && null;
-      member.links.twitter = req.body.twitter && null;
-      member.links.facebook = req.body.facebook && null;
-      member.links.github = req.body.github && null;
+      member.profileImage = file.path ? file.path : "";
+      member.about = req.body.about ? req.body.about : "";
+      member.links.twitter = req.body.twitter ? req.body.twitter : "";
+      member.links.facebook = req.body.facebook ? req.body.facebook : "";
+      member.links.github = req.body.github ? req.body.github : "";
       const res = await member.save();
       res.render("pages/setMember", { success: true, message: "Member added" });
     } catch (error) {
@@ -23,9 +23,38 @@ module.exports = function (app) {
       });
     }
   });
-
-  app.get("/updateMember", (req, res) => {
+  app.get("/member", async (req, res) => {
+    try {
+      const members = await Member.find({});
+      res.render("pages/members", { members });
+    } catch (error) {
+      res.render("pages/dashboard", {
+        success: false,
+        message: "Some error occured",
+      });
+    }
+  });
+  app.get("/updateMember/:id", async (req, res) => {
+    try {
+      const id = req.params.id;
+      const member = await Member.findById(id);
+      if (!member) throw Error("Member Not Found");
+      res.render("pages/updateMember", { member });
+    } catch (error) {
+      res.render("pages/dashboard", { success: false, message: error.msg });
+    }
     res.render("pages/updateMember");
   });
-  app.post("/updateMember/:id")
+  app.post("/updateMember/:id", async (req, res) => {
+    const id = req.params.id;
+    try {
+      const res = findByIdAndUpdate(id, req.body);
+      res.render("pages/members", { success: true, message: "Member updated" });
+    } catch (error) {
+      res.render("pages/members", {
+        success: false,
+        messages: "Error occured",
+      });
+    }
+  });
 };
