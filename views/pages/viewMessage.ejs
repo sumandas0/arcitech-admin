@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body class="jumbotron">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main>
+
+        <div class="card">
+            <div class="card-header"><%= message.name%></div>
+            <div class="card-header"><%= message.email%></div>
+            <div class="card-body"><%= message.message %></div>
+            <div class="card-footer"><a href="/message/delete/<%= message.id %>">Delete</a></div>
+        </div>
+
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+
+</html>

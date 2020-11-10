@@ -4,6 +4,7 @@ const EventSchema = mongoose.Schema({
   image: { type: String },
   details: { type: String, required: true },
   eventLink: { type: String },
+  featured: Boolean,
 });
 const model = mongoose.model("Event", EventSchema);
 module.exports = model;

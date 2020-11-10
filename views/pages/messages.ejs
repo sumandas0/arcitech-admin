@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body class="jumbotron">
+
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>email</th>
+                    <th>message</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <% if(messages) {%><% messages.forEach(message => { %>
+                <tr>
+                    <td><%= message.name.substr(15) %> </td>
+                    <td><%= message.email.substr(15) %></td>
+                    <td><%= message.messages %></td>
+                    <td><a href="/message/view/<%= message.id %> ">View</a></td>
+                    <td><a href="/message/delete/<%= message.id %> ">Delete</a></td>
+                </tr>
+                <% }) %><%}%> 
+            </tbody>
+        </table>
+     
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+                </footer>
+
+</body>
+
+</html>
