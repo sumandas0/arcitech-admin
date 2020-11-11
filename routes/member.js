@@ -48,7 +48,7 @@ module.exports = function (app) {
       });
     }
   });
-  app.get("/getMembers", isUser, async (req, res) => {
+  app.get("/getMembers", async (req, res) => {
     try {
       const members = await Member.find({});
       if (!members) throw Error("Member Not found");
