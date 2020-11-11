@@ -21,5 +21,17 @@
         <a class="nav-link" href="/profile">Profile</a>
       </li>
     </ul>
+  
+
   </nav>
+  <% if(typeof success!=="undefined" && !success){ %>
+  <div class="alert alert-danger">
+    <strong>Error : </strong> <%= (typeof message!== "undefined")?message:"Something Occurs" %> .
+  </div>
+  <% } %>
+  <% if(typeof success!=="undefined" && success){ %>
+  <div class="alert alert-success">
+    <strong>Success : </strong> <%= (typeof message!== "undefined")?message:"Something Occurs" %> .
+  </div>
+  <% } %>
 </div>
