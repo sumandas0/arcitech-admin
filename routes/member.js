@@ -17,10 +17,9 @@ module.exports = function (app) {
         member.name = req.body.name;
         member.about = req.body.about || "";
         member.links.twitter = req.body.twitter || "";
-        member.links.facebook = req.body.facebook || "";
+        member.links.linkedin = req.body.linkedin || "";
         member.links.github = req.body.github || "";
-        if (file.mimetype !== "image/jpeg" || file.mimetype !== "image/png")
-          throw Error("Must be an image");
+     
         const resp = await cloudinary.uploader.upload(file.path);
         member.profileImage = resp.secure_url || "";
         await member.save();
@@ -29,7 +28,6 @@ module.exports = function (app) {
           message: "Member added",
         });
       } catch (error) {
-        console.log(error);
         res.render("pages/setMember", {
           success: false,
           message: "Member hasn't been added",
@@ -57,7 +55,7 @@ module.exports = function (app) {
       res.status(400).json({ success: false, message: error.msg });
     }
   });
-  app.get("/updateMember/:id",isUser, async (req, res) => {
+  app.get("/updateMember/:id", isUser, async (req, res) => {
     try {
       const id = req.params.id;
       const member = await Member.findById(id);
@@ -68,7 +66,7 @@ module.exports = function (app) {
     }
     res.render("pages/updateMember");
   });
-  app.post("/updateMember/:id",isUser, async (req, res) => {
+  app.post("/updateMember/:id", isUser, async (req, res) => {
     const id = req.params.id;
     try {
       const res = findByIdAndUpdate(id, req.body);

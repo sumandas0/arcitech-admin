@@ -3,6 +3,7 @@ const EventSchema = mongoose.Schema({
   topic: { type: String, required: true },
   image: { type: String },
   details: { type: String, required: true },
+  date: { type: String, required: true },
   eventLink: { type: String },
   featured: Boolean,
 });

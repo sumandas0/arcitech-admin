@@ -6,20 +6,21 @@ module.exports = function (app, passport) {
   app.get("/setEvent", isUser, (req, res) => {
     res.render("pages/setEvent");
   });
-  app.post("/setEvent",  multer.single("image"), async (req, res) => {
+  app.post("/setEvent", multer.single("image"), async (req, res) => {
     try {
       const file = req.file;
       const event = new Event();
       event.topic = req.body.topic;
       event.details = req.body.details;
       event.eventLink = req.body.eventLink;
-
+      event.date = req.body.date;
+    
       const resp = await cloudinary.uploader.upload(file.path);
       event.image = resp.secure_url || "";
       await event.save();
       res.render("pages/setEvent", { success: true, message: "Event added" });
     } catch (error) {
-      console.log(error)
+      console.log(error);
       res.render("pages/setEvent", {
         success: false,
         message: "Event hasn't been added",
