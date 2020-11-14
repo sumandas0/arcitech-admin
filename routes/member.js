@@ -15,11 +15,12 @@ module.exports = function (app) {
         const file = req.file;
         const member = new Member();
         member.name = req.body.name;
+        member.role = req.body.role || "Developer";
         member.about = req.body.about || "";
         member.links.twitter = req.body.twitter || "";
         member.links.linkedin = req.body.linkedin || "";
         member.links.github = req.body.github || "";
-     
+
         const resp = await cloudinary.uploader.upload(file.path);
         member.profileImage = resp.secure_url || "";
         await member.save();
