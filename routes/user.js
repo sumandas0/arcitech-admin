@@ -37,7 +37,7 @@ module.exports = function (app, passport) {
       text:
         "Please open the given link to open account in arcitech admin panel",
       html:
-        '<p>Click <a href="http://localhost:3000/user/invite/' +
+        '<p>Click <a href="http://arcitech.herokuapp.com/user/invite/' +
         token +
         '">here</a> to set your password</p>',
     };
