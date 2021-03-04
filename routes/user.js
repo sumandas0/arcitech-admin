@@ -4,9 +4,10 @@ const isUser = require("../middlewares/isUser");
 const isAdmin = require("../middlewares/isAdmin");
 const JWT_TOKEN = require("../config/config").JWT_KEY;
 const url = require("../config/config").URL;
+const os = require('os')
 
 module.exports = function (app, passport) {
-  app.get("/user/invite", isAdmin,(req, res) => {
+  app.get("/user/invite", isAdmin, (req, res) => {
     res.render("pages/invite");
   });
   app.post(
@@ -17,7 +18,7 @@ module.exports = function (app, passport) {
       failureFlash: true,
     })
   );
- 
+
   app.post(
     "/user/login",
     passport.authenticate("local-login", {
@@ -26,8 +27,11 @@ module.exports = function (app, passport) {
       failureFlash: true,
     })
   );
- 
-  app.post("/user/invite",isAdmin, (req, res) => {
+  app.get("/user/login", (req, res) => {
+    console.log(req.headers.host);
+    res.render("pages/login");
+  });
+  app.post("/user/invite", isAdmin, (req, res) => {
     const email = req.body.email;
     const token = jwt.sign({ email }, JWT_TOKEN);
     const msg = {
@@ -58,7 +62,7 @@ module.exports = function (app, passport) {
     }
     res.render("pages/setPassword", { email: decoded.email });
   });
-  app.get("/user/dashboard",isUser, (req, res) => {
+  app.get("/user/dashboard", isUser, (req, res) => {
     res.render("pages/dashboard");
   });
 };
