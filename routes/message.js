@@ -5,7 +5,7 @@ module.exports = (app) => {
   app.post("/message", async (req, res) => {
     try {
       const message = {
-        name: req.body.message,
+        name: req.body.name,
         email: req.body.email,
         message: req.body.message,
       };
